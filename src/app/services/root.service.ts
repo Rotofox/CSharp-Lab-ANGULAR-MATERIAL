@@ -22,36 +22,25 @@ export class RootService {
         // const to = ;
         return this.http.get<any>(
             `https://localhost:44303/api/Expenses?page=` + x);
-
-        // return this.http.get<any>(`https://localhost:44303/api/Expenses/`)
-        //     .pipe(map(response => {
-        //         this.expenses = response;
-        //         this.expensesSubject.next(this.expenses);
-        //         return response;
-        //     }));
     }
 
     getAllUsers(): Observable<any> {
         return this.http.get<any>(
             `https://localhost:44303/api/users`);
-
-        // return this.http.get<any>(`https://localhost:44303/api/users`)
-        //     .pipe(map(response => {
-        //         this.users = response;
-        //         this.usersSubject.next(this.users);
-        //         return response;
-        //     }));
     }
 
     getAllUserRoles(): Observable<any> {
         return this.http.get<any>(
-            `https://localhost:44303/api/userRoles`);
+            `https://localhost:44303/api/role`);
+    }
 
-        // return this.http.get<any>(`https://localhost:44303/api/users`)
-        //     .pipe(map(response => {
-        //         this.users = response;
-        //         this.usersSubject.next(this.users);
-        //         return response;
-        //     }));
+    getAllHistory(x: number): Observable<any> {
+        return this.http.get<any>(
+            `https://localhost:44303/api/history/` + x);
+    }
+
+    getAllCommentsAndFilter(filter): Observable<any> {
+        const url = `${`https://localhost:44303/api/comments?filter=`}${filter}`;
+        return this.http.get<any>(url,filter)
     }
 }

@@ -23,11 +23,15 @@ export class ExpensesComponent implements OnInit {
   }
 
   getAllExpenses(x: number) {
-      this.rootService.getAllExpenses(1).subscribe(t => {
+      this.rootService.getAllExpenses(x).subscribe(t => {
         this.expenses = t;
         console.log(t);
       });
-  
+
+  }
+
+  public handlePage(e: any) {
+    this.getAllExpenses(e.pageIndex);
   }
 
  

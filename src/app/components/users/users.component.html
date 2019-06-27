@@ -1,39 +1,77 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]='userPanel' [disabled]='!userPanel'>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Users</mat-panel-title>
+    </mat-expansion-panel-header>
 
-<!-- <ul>
-  <li *ngFor="let u of users">{{u.username}}</li>
-</ul> -->
-
-<table mat-table [dataSource]="users" class="mat-elevation-z8">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-  
-  
-   <!-- ID Column -->
-  <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-
-
-    <!-- Username Column -->
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef> Username </th>
-      <td mat-cell *matCellDef="let element"> {{element.username}} </td>
-    </ng-container>
-  
-    <!--Email Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef> Email </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th *matHeaderCellDef mat-header-cell> ID</th>
+        <td *matCellDef="let element" mat-cell> {{element.id}} </td>
+      </ng-container>
+      <!-- Username Column -->
+      <ng-container matColumnDef="username">
+        <th *matHeaderCellDef mat-header-cell> Username</th>
+        <td *matCellDef="let element" mat-cell> {{element.username}} </td>
+      </ng-container>
+      <!--Email Column -->
+      <ng-container matColumnDef="email">
+        <th *matHeaderCellDef mat-header-cell> Email</th>
+        <td *matCellDef="let element" mat-cell> {{element.email}} </td>
+      </ng-container>
+      <!--UserRole Column -->
+      <ng-container matColumnDef="userRole">
+        <th *matHeaderCellDef mat-header-cell> UserRole</th>
+        <td *matCellDef="let element" mat-cell> {{element.userRole}} </td>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> Role History </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" (click)='showHistory(element.id)'> Role History
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="usersTable"></tr>
+      <tr mat-row *matRowDef="let row; columns: usersTable;"></tr>
+    </table>
     
-     <!--UserRole Column -->
-     <ng-container matColumnDef="userRole">
-      <th mat-header-cell *matHeaderCellDef> UserRole </th>
-      <td mat-cell *matCellDef="let element"> {{element.userRole}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]='historyPanel' [disabled]='!historyPanel'>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Role History</mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <table mat-table [dataSource]="history" class="mat-elevation-z8">
+      <!--Username Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> Username </th>
+        <td mat-cell *matCellDef="let history"> {{history.username}} </td>
+      </ng-container>
+      <!--UserRole Column -->
+      <ng-container matColumnDef="roleTitle">
+        <th mat-header-cell *matHeaderCellDef> Role </th>
+        <td mat-cell *matCellDef="let history"> {{history.roleTitle}} </td>
+      </ng-container>
+      <!--UserRole Column -->
+      <ng-container matColumnDef="allocatedAt">
+        <th mat-header-cell *matHeaderCellDef> Since </th>
+        <td mat-cell *matCellDef="let history"> {{history.allocatedAt | date: 'dd/MM/yyyy hh:mm'}} </td>
+      </ng-container>
+      <!--UserRole Column -->
+      <ng-container matColumnDef="removedAt">
+        <th mat-header-cell *matHeaderCellDef> Removed at </th>
+        <td mat-cell *matCellDef="let history"> {{history.removedAt | date: 'dd/MM/yyyy hh:mm'}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="historyTable"></tr>
+      <tr mat-row *matRowDef="let row; columns: historyTable;"></tr>
+
+    </table>
+    <br>
+    <div style="margin: auto">
+      <button mat-raised-button color="primary" style="margin: 30px" (click)="cancelHistory()">Cancel</button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
